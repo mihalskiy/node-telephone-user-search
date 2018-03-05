@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 // Set up the express app
 const app = express();
 
+var helmet = require('helmet');
+app.use(helmet())
+
 // Log requests to the console.
 app.use(logger('dev'));
 
