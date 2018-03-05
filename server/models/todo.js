@@ -5,13 +5,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     });
-
     Todo.associate = (models) => {
         Todo.hasMany(models.TodoItem, {
             foreignKey: 'todoId',
             as: 'todoItems',
         });
     };
-
     return Todo;
 };
