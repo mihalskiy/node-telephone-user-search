@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/helmet": "0.0.37",
+    "@types/morgan": "^1.7.35",
+    "@types/sequelize": "^4.27.8",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
