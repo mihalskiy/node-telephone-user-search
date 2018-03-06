@@ -1,5 +1,7 @@
+/*
 const Todo = require('../models').Todo;
 const TodoItem = require('../models').TodoItem;
+//const contacts = require('../contacts').TodoItem;
 
 module.exports = {
   create(req, res) {
@@ -87,3 +89,4 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 };
+*/
