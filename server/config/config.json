@@ -1,6 +1,11 @@
 {
   "development": {
-    "use_env_variable": "DATABASE_URL"
+    "username": "postgres",
+    "password": "newPassword",
+    "database": "ruslan",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
   },
   "test": {
     "username": "waiyaki",
