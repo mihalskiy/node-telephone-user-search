@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       phoneNumber: {
-        type: Sequelize.NUMBER
+        type: Sequelize.STRING
       },
       firstName: {
           type: Sequelize.STRING
@@ -27,7 +27,7 @@ module.exports = {
           type: Sequelize.STRING
       },
       anotherPhoneNumber: {
-          type: Sequelize.NUMBER
+          type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

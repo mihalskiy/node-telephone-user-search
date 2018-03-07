@@ -1,14 +1,13 @@
-const todosController = require('../controllers').todos;
-const todoItemsController = require('../controllers').todoItems;
+const contactsController = require('../controllers').contacts;
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the Todos API!',
   }));
 
-  app.post('/api/todos', todosController.create);
-  app.get('/api/todos', todosController.list);
-  app.get('/api/todos/:todoId', todosController.retrieve);
+  app.post('/api/todos', contactsController.create);
+  app.get('/api/todos', contactsController.list);
+  /*app.get('/api/todos/:todoId', todosController.retrieve);
   app.put('/api/todos/:todoId', todosController.update);
   app.delete('/api/todos/:todoId', todosController.destroy);
 
@@ -19,5 +18,5 @@ module.exports = (app) => {
   );
   app.all('/api/todos/:todoId/items', (req, res) => res.status(405).send({
     message: 'Method Not Allowed',
-  }));
+  }));*/
 };
