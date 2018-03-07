@@ -5,9 +5,15 @@ module.exports = {
         return Contact
             .create({
                 phoneNumber: req.body.phoneNumber,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                photoString: req.body.photoString,
+                company: req.body.company,
+                anotherPhoneNumber: req.body.anotherPhoneNumber,
             })
             .then((contacts) => res.status(201).send(contacts))
-    .catch((error) => res.status(400).send(error));
+            .catch((error) => res.status(400).send(error));
     },
 
     list(req, res) {
