@@ -1,34 +1,23 @@
-const Todo = require('../models').Todo;
-const TodoItem = require('../models').TodoItem;
 const Contact = require('../models').Contact;
 
 module.exports = {
     create(req, res) {
         return Contact
             .create({
-                Contact: req.body.phoneNumber,
+                phoneNumber: req.body.phoneNumber,
             })
-            .then((todo) => res.status(201).send(todo))
+            .then((contacts) => res.status(201).send(contacts))
     .catch((error) => res.status(400).send(error));
     },
 
     list(req, res) {
         return Contact
-            .findAll({
-                /*include: [{
-                    model: TodoItem,
-                    as: 'todoItems',
-                }],*/
-                /*order: [
-                    ['createdAt', 'DESC'],
-                    [{ model: Contact, as: 'Contacts' }, 'createdAt', 'ASC'],
-                ],*/
-            })
+            .findAll()
             .then((contacts) => res.status(200).send(contacts))
     .catch((error) => res.status(400).send(error));
     },
 
-    retrieve(req, res) {
+    /*retrieve(req, res) {
         return Todo
             .findById(req.params.todoId, {
                 include: [{
@@ -86,5 +75,5 @@ module.exports = {
     .catch((error) => res.status(400).send(error));
     })
     .catch((error) => res.status(400).send(error));
-    },
+    },*/
 };
