@@ -1,5 +1,4 @@
 const Contact = require('../models').Contact;
-//const Op = Sequelize.Op;
 
 module.exports = {
     create(req, res) {
@@ -20,16 +19,34 @@ module.exports = {
 
     list(req, res) {
         const phoneNumber = req.query.phoneNumber
-        const options = {};
+        //const opts = {};
+        //const Op = Sequelize.Op;
 
-        if (req.query.phoneNumber) {
-             options. where = {
-                phoneNumber: phoneNumber
+        const opts = {
+            where : {
+
+            }
+        };
+
+        if (req.query.firstName) {
+            opts.where.firstName = {
+                $like: '%' + req.query.firstName +'%'
             }
         }
-        return Contact
-            .findAll(options)
 
+        if (req.query.phoneNumber) {
+            opts.where.phoneNumber = {
+                $like: '%' + req.query.phoneNumber +'%'
+            }
+        }
+
+        if (req.query.company) {
+            opts.where.company = {
+                $like: '%' + req.query.company +'%'
+            }
+        }
+
+        return Contact.findAll(opts)
             .then((contacts) => res.status(200).send(contacts))
     .catch((error) => res.status(400).send(error));
     },
