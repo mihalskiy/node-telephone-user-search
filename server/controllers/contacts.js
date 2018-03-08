@@ -1,4 +1,5 @@
 const Contact = require('../models').Contact;
+//const Op = Sequelize.Op;
 
 module.exports = {
     create(req, res) {
@@ -16,33 +17,48 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
     },
 
+
     list(req, res) {
+        const phoneNumber = req.query.phoneNumber
+        const options = {};
+
+        if (req.query.phoneNumber) {
+             options. where = {
+                phoneNumber: phoneNumber
+            }
+        }
         return Contact
-            .findAll()
+            .findAll(options)
+
             .then((contacts) => res.status(200).send(contacts))
     .catch((error) => res.status(400).send(error));
     },
 
-    /*retrieve(req, res) {
-        return Todo
-            .findById(req.params.todoId, {
+    retrieve(req, res) {
+        return Contact
+            .findById(req.params.contactId/*, {
                 include: [{
                     model: TodoItem,
                     as: 'todoItems',
                 }],
-            })
-            .then((todo) => {
-            if (!todo) {
+            }*/)
+            .then((сontact) => {
+            if (!сontact) {
             return res.status(404).send({
-                message: 'Todo Not Found',
+                message: 'сontact Not Found',
             });
         }
-        return res.status(200).send(todo);
+        return res.status(200).send(сontact);
     })
     .catch((error) => res.status(400).send(error));
     },
 
-    update(req, res) {
+    search(req, res) {
+        return Contact
+
+    },
+
+    /*update(req, res) {
         return Todo
             .findById(req.params.todoId, {
                 include: [{

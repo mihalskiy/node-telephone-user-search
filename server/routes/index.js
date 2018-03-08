@@ -5,10 +5,11 @@ module.exports = (app) => {
     message: 'Welcome to the Todos API!',
   }));
 
-  app.post('/api/todos', contactsController.create);
-  app.get('/api/todos', contactsController.list);
-  /*app.get('/api/todos/:todoId', todosController.retrieve);
-  app.put('/api/todos/:todoId', todosController.update);
+  app.post('/api/contacts', contactsController.create);
+  app.get('/api/contacts', contactsController.list);
+  app.get('/api/contacts/:contactId', contactsController.retrieve);
+  /*app.get('/api/contacts', contactsController.search);*/
+  /*app.put('/api/todos/:todoId', todosController.update);
   app.delete('/api/todos/:todoId', todosController.destroy);
 
   app.post('/api/todos/:todoId/items', todoItemsController.create);
