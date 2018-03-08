@@ -18,9 +18,6 @@ module.exports = {
 
 
     list(req, res) {
-        const phoneNumber = req.query.phoneNumber
-        //const opts = {};
-        //const Op = Sequelize.Op;
 
         const opts = {
             where : {
@@ -43,6 +40,12 @@ module.exports = {
         if (req.query.company) {
             opts.where.company = {
                 $like: '%' + req.query.company +'%'
+            }
+        }
+
+        if (req.query.lastName) {
+            opts.where.lastName = {
+                $like: '%' + req.query.lastName +'%'
             }
         }
 
@@ -70,8 +73,24 @@ module.exports = {
     .catch((error) => res.status(400).send(error));
     },
 
-    search(req, res) {
-        return Contact
+    one(req, res) {
+        const opts = {
+            attributes: ['firstName'],
+            where : {
+
+            }
+        };
+
+        if (req.query.phoneNumber) {
+            opts.where.phoneNumber = {
+                $like: '%' + req.query.phoneNumber +'%'
+            }
+
+        }
+
+        return Contact.findAll(opts)
+            .then((contacts) => res.status(200).send(contacts))
+            .catch((error) => res.status(400).send(error));
 
     },
 

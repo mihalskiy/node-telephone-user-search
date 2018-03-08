@@ -7,6 +7,7 @@ module.exports = (app) => {
 
   app.post('/api/contacts', contactsController.create);
   app.get('/api/contacts', contactsController.list);
+  app.get('/api/contact', contactsController.one);
   app.get('/api/contacts/:contactId', contactsController.retrieve);
   /*app.get('/api/contacts', contactsController.search);*/
   /*app.put('/api/todos/:todoId', todosController.update);
