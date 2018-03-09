@@ -20,6 +20,7 @@ module.exports = {
     list(req, res) {
 
         const opts = {
+            attributes: ['phoneNumber'],
             where : {
 
             }
