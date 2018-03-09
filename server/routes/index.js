@@ -9,5 +9,6 @@ module.exports = (app) => {
   app.get('/contacts', contactsController.list);
   app.get('/contact', contactsController.one);
   app.get('/contacts/:contactId', contactsController.retrieve);
+  app.get('/information', contactsController.phoneList);
 };
 
