@@ -76,7 +76,7 @@ module.exports = {
 
     one(req, res) {
         const opts = {
-            attributes: ['firstName'],
+            attributes: ['firstName', 'lastName'],
             where : {
 
             }

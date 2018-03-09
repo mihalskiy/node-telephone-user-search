@@ -1,4 +1,4 @@
-#This repo houses code for searc the contacts  (using Sequelize)"
+#This repo houses code for search the contacts  (using Sequelize)"
 
 If you dont have install  node-js, please go this link [https://nodejs.org](https://nodejs.org)
 
@@ -14,6 +14,14 @@ and visiting [http://localhost:8000](http://localhost:8000).
 You should see {"message":"Welcome to the beginning of nothingness."}
 3. Running the migrations to do this, we run the following command:  ```sequelize db:migrate```
 4. You can seed your database with this data by running this sequelize-cli command: ```sequelize db:seed:all```
+
+under run project need use [postmean](https://www.getpostman.com/apps) or another application
+
+for get contacts all names the saved under one phone number, use example link [127.0.0.1:8000/contact?phoneNumber=94](127.0.0.1:8000/contact?phoneNumber=94)
+![alt text](screenshots/get.png "Description goes here")
+
+for save array contacts use post query which is listed below
+![alt text](screenshots/post.png "Description goes here")
 
 
 
