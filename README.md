@@ -1,7 +1,20 @@
-# Getting Started With Node, Express and Postgres (using Sequelize)
+#This repo houses code for searc the contacts  (using Sequelize)"
 
-This repo houses code for the blog ["Getting Started with Node, Express and Postgres (using Sequelize)"](https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize)
+If you dont have install  node-js, please go this link [https://nodejs.org](https://nodejs.org)
 
-Code for various sections is separated into branches, so if you're working through the tutorial and you get stuck, you can always checkout the corresponding branch and refer.
+#Sequelize Setup
 
-Have fun! 😄
+Let's begin by installing Sequelize CLI package. ```npm install -g sequelize-cli```
+
+#Project Setup
+
+1. Use command  ```npm install``` for install dependices
+2. Now try running the application by executing ```npm run start:dev```
+and visiting [http://localhost:8000](http://localhost:8000). 
+You should see {"message":"Welcome to the beginning of nothingness."}
+3. Running the migrations to do this, we run the following command:  ```sequelize db:migrate```
+4. You can seed your database with this data by running this sequelize-cli command: ```sequelize db:seed:all```
+
+
+
+Have fun! smile
