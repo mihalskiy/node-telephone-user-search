@@ -18,10 +18,10 @@ You should see {"message":"Welcome to the beginning of nothingness."}
 under run project need use [postmean](https://www.getpostman.com/apps) or another application
 
 for get contacts all names the saved under one phone number, use example link [127.0.0.1:8000/contact?phoneNumber=94](127.0.0.1:8000/contact?phoneNumber=94)
-![alt text](screenshots/get.png "Description goes here")
+![Alt text](screenshots/get.png?raw=true "get contacts all names")
 
 for save array contacts use post query which is listed below
-![alt text](screenshots/post.png "Description goes here")
+![alt text](/screenshots/post.png "Description goes here")
 
 
 
