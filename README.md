@@ -50,6 +50,24 @@ Password:****
 ``` psql -d database_name ```
 
 
+# Config Setup
+
+#### go to directory /you_project/server/config and open file config.json
+
+```$xslt
+{
+  "development": {
+    "username": "you_DATABASE_username",
+    "password": "you_DATABASE_password",
+    "database": "you_DATABASE_username",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+}
+```
+
+
 # Project Setup
 
 1. Use command  ```npm install``` for install dependices
