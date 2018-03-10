@@ -19,7 +19,7 @@ You should see {"message":"Welcome to the beginning of nothingness."}
 
 
 ######for get contacts all names the saved under one phone number, use example query [127.0.0.1:8000/contact?phoneNumber=94](127.0.0.1:8000/contact?phoneNumber=94)
-![alt text](screenshots/get.png?raw=true "get contacts all names")
+![alt text](screenshots/get_scr.png?raw=true "get contacts all names")
 
 
 ######for save array contacts use post query which is listed below
@@ -27,7 +27,7 @@ You should see {"message":"Welcome to the beginning of nothingness."}
 
 
 ######transfer request, name or last name or company and get the most matching phone numbers. Example query [http://localhost:8000/contacts?phoneNumber=94&company=o](http://localhost:8000/contacts?phoneNumber=94&company=o)
-![alt text](screenshots/query.png "save array contacts").
+![alt text](screenshots/query_scr.png "save array contacts").
 
 
 ######Get a list of phone numbers with information (name, surname, company), by key. Example query [http://localhost:8000/information](http://localhost:8000/information)
