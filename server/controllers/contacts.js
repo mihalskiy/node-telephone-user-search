@@ -20,7 +20,6 @@ module.exports = {
     list(req, res) {
 
         const opts = {
-            attributes: ['phoneNumber'],
             where : {
 
             }
@@ -74,7 +73,7 @@ module.exports = {
     .catch((error) => res.status(400).send(error));
     },
 
-    one(req, res) {
+    /*one(req, res) {
         const opts = {
             attributes: ['firstName', 'lastName', 'phoneNumber'],
             where : {
@@ -94,7 +93,7 @@ module.exports = {
             .catch((error) => res.status(400).send(error));
 
     },
-
+*/
     phoneList(req, res) {
         return Contact.findAll()
             .then((contacts) => res.status(200).send(contacts))
