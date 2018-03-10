@@ -8,8 +8,8 @@ module.exports = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
-                photoString: req.body.photoString,
-                company: req.body.company,
+                photoURL: req.body.photoURL,
+                companyName: req.body.companyName,
                 anotherPhoneNumber: req.body.anotherPhoneNumber,
             })
             .then((contacts) => res.status(201).send(contacts))
@@ -37,9 +37,9 @@ module.exports = {
             }
         }
 
-        if (req.query.company) {
-            opts.where.company = {
-                $like: '%' + req.query.company +'%'
+        if (req.query.companyName) {
+            opts.where.companyName = {
+                $like: '%' + req.query.companyName +'%'
             }
         }
 
@@ -73,30 +73,4 @@ module.exports = {
     .catch((error) => res.status(400).send(error));
     },
 
-    /*one(req, res) {
-        const opts = {
-            attributes: ['firstName', 'lastName', 'phoneNumber'],
-            where : {
-
-            }
-        };
-
-        if (req.query.phoneNumber) {
-            opts.where.phoneNumber = {
-                $like: '%' + req.query.phoneNumber +'%'
-            }
-
-        }
-
-        return Contact.findAll(opts)
-            .then((contacts) => res.status(200).send(contacts))
-            .catch((error) => res.status(400).send(error));
-
-    },
-*/
-    phoneList(req, res) {
-        return Contact.findAll()
-            .then((contacts) => res.status(200).send(contacts))
-            .catch((error) => res.status(400).send(error));
-    }
 };

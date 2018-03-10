@@ -26,11 +26,11 @@ You should see {"message":"Welcome to the beginning of nothingness."}
 ![alt text](screenshots/post.png "save array contacts").
 
 
-###### transfer request, name or last name or company and get the most matching phone numbers. Example query [http://localhost:8000/contacts?phoneNumber=94&company=o](http://localhost:8000/contacts?phoneNumber=94&company=o)
+###### transfer request, name or last name or companyName and get the most matching phone numbers. Example query [http://localhost:8000/contacts?phoneNumber=94&companyName=o](http://localhost:8000/contacts?phoneNumber=94&companyName=o)
 ![alt text](screenshots/query_scr.png "save array contacts").
 
 
-###### Get a list of phone numbers with information (name, surname, company), by key. Example query [http://localhost:8000/information](http://localhost:8000/information)
+###### Get a list of phone numbers with information (name, surname, companyName), by key. Example query [http://localhost:8000/information](http://localhost:8000/information)
 ![alt text](screenshots/phone.png "Get a list of phone numbers").
 
 

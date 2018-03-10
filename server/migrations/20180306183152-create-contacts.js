@@ -20,10 +20,10 @@ module.exports = {
       email: {
           type: Sequelize.STRING
       },
-      photoString: {
+        photoURL: {
           type: Sequelize.STRING
       },
-      company: {
+      companyName: {
           type: Sequelize.STRING
       },
       anotherPhoneNumber: {

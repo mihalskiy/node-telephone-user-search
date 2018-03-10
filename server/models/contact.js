@@ -44,11 +44,11 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
-        photoString: {
+        photoURL: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        company: {
+        companyName: {
             type: DataTypes.STRING,
             allowNull: false,
         },
