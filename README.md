@@ -26,7 +26,7 @@ You should see {"message":"Welcome to the beginning of nothingness."}
 ![alt text](screenshots/post.png "save array contacts").
 
 
-######transfer request, name or last name or company and get the most matching phone numbers. Example query [http://localhost:8000/contacts?company=as&&firstName=o](http://localhost:8000/contacts?company=as&&firstName=o)
+######transfer request, name or last name or company and get the most matching phone numbers. Example query [http://localhost:8000/contacts?phoneNumber=94&company=o](http://localhost:8000/contacts?phoneNumber=94&company=o)
 ![alt text](screenshots/query.png "save array contacts").
 
 
