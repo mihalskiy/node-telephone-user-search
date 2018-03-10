@@ -4,8 +4,6 @@ module.exports = {
     create(req, res) {
         return Contact
             .create({
-
-                
                 phoneNumber: req.body.phoneNumber,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -98,9 +96,7 @@ module.exports = {
     },
 
     phoneList(req, res) {
-        return Contact.findAll({
-            attributes: ['phoneNumber', 'anotherPhoneNumber', 'firstName', 'lastName', 'company'],
-        })
+        return Contact.findAll()
             .then((contacts) => res.status(200).send(contacts))
             .catch((error) => res.status(400).send(error));
     }

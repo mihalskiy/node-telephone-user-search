@@ -1,6 +1,3 @@
-var Sequelize = require('sequelize');
-require('sequelize-isunique-validator')(Sequelize);
-
 module.exports = (sequelize, DataTypes) => {
     const Contact = sequelize.define('Contact', {
         phoneNumber: {
