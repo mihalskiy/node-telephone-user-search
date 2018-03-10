@@ -59,7 +59,7 @@ Password:****
   "development": {
     "username": "you_DATABASE_username",
     "password": "you_DATABASE_password",
-    "database": "you_DATABASE_username",
+    "database": "you_DATABASE_name",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
