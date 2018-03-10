@@ -30,7 +30,7 @@ You should see {"message":"Welcome to the beginning of nothingness."}
 ![alt text](screenshots/query_scr.png "save array contacts").
 
 
-###### Get a list of phone numbers with information (name, surname, companyName), by key. Example query [http://localhost:8000/information](http://localhost:8000/information)
+###### Get a list of phone numbers with information (name, surname, companyName), by key. Example query [http://localhost:8000/contacts](http://localhost:8000/contacts)
 ![alt text](screenshots/phone.png "Get a list of phone numbers").
 
 
