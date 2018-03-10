@@ -52,7 +52,7 @@ Password:****
 
 # Config Setup
 
-#### go to directory /you_project/server/config and open file config.json
+#### go to directory /you_project/server/config and open file config.json and change settings under your database
 
 ```$xslt
 {
