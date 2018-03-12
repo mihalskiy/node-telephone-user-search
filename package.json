@@ -18,6 +18,7 @@
     "@types/helmet": "0.0.37",
     "@types/morgan": "^1.7.35",
     "@types/sequelize": "^4.27.8",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",

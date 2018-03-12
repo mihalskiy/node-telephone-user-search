@@ -1,4 +1,8 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+const __SECRET__ = 'IeUG345VTJjd4ty3fv';
+const __EXPIRES_TIME__ = 86400; // expires in 24 hours
 
 const {User} = require('../models');
 
@@ -9,6 +13,7 @@ module.exports = {
       telephoneNumber,
       password,
     } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 8);
 
     const user = await User.findOne({
       where: {
@@ -22,20 +27,21 @@ module.exports = {
           .create({
             userName,
             telephoneNumber,
-            password,
+            password: hashedPassword,
           });
 
         const token = jwt.sign(
           {
             user: createdUser.id,
           },
-          'IeUG345VTJjd4ty3fv',
+          __SECRET__,
           {
-            expiresIn: 24 * 60 * 60,
+            expiresIn: __EXPIRES_TIME__,
           }
         );
         res
           .send(200, {
+            auth: true,
             token,
             id: createdUser.id,
             userName: createdUser.userName,
@@ -49,34 +55,51 @@ module.exports = {
       res.status(400).json('Username already exist!');
     }
   },
-  login(req, res) {
+  async login(req, res) {
     const {userName, password} = req.body;
 
-    return User
+    const user = await User
       .findOne({
         where: {
           userName,
         },
-      })
-      .then((user)=> {
-        if (!user) {
-          return res
-            .status(404)
-            .send({
-              message: 'user Not Found',
-            });
-        } else if (!user.validPassword(password)) {
-          return res
-            .status(404)
-            .send({
-              message: 'password Not Found',
-            });
-        } else {
-          req.session.user = user.dataValues;
-        }
-      })
-      .then((users) => res.status(201).send(users))
-      .catch((error) => res.status(400).send(error));
+      });
+
+    if (!user) {
+      return res
+        .status(404)
+        .send({
+          message: 'user Not Found',
+        });
+    }
+
+    const passwordIsValid = bcrypt.compareSync(password, user.password);
+
+    if (!passwordIsValid) {
+      return res
+        .status(401)
+        .send({
+          auth: false,
+          token: null,
+        });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user.id,
+      },
+      __SECRET__,
+      {
+        expiresIn: __EXPIRES_TIME__,
+      }
+    );
+
+    res
+      .status(200)
+      .send({
+        auth: true,
+        token,
+      });
   },
   logout(req, res) {
     if (req.session.user && req.cookies.user_sid) {
