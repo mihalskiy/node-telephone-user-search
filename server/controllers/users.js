@@ -4,7 +4,7 @@ module.exports = {
     registere (req, res) {
         return User
             .create({
-                userName: req.body.username,
+                userName: req.body.userName,
                 telephoneNumber: req.body.telephoneNumber,
                 password: req.body.password
             })
@@ -39,9 +39,6 @@ module.exports = {
         } else {
             res.redirect('/login');
         }
-        return User
-            .then((users) => res.status(201).send(users))
-            .catch((error) => res.status(400).send(error));
     },
 
 
