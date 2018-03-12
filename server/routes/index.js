@@ -4,14 +4,9 @@ const usersController = require('../controllers').users;
 
 module.exports = (app) => {
 
-    // route for Home-Page
-    app.get('/', (req, res) => res.status(200).send({
-        message: 'Welcome to the CONTACTS API!',
-    }));
-
     // route for user signup
-    app.get('/signup', usersController.signup);
-    app.post('/signup', usersController.create);
+    //app.get('/register', usersController.signup);
+    app.post('/register', usersController.create);
         /*.get(sessionChecker, (req, res) => {
             res.sendFile(__dirname + '/views/signup.html');
         })
@@ -93,7 +88,7 @@ module.exports = (app) => {
     });*/
 
     // start the express server
-    app.listen(app.get('port'), () => console.log(`App started on port ${app.get('port')}`));
+    //app.listen(app.get('port'), () => console.log(`App started on port ${app.get('port')}`));
 
 
 
