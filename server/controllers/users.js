@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const __SECRET__ = 'IeUG345VTJjd4ty3fv';
-const __EXPIRES_TIME__ = 86400; // expires in 24 hours
+const config = require('../auth/config');
 
 const {User} = require('../models');
 
@@ -34,9 +33,9 @@ module.exports = {
           {
             user: createdUser.id,
           },
-          __SECRET__,
+          config.secret,
           {
-            expiresIn: __EXPIRES_TIME__,
+            expiresIn: config.expireTime,
           }
         );
         // TODO create table 'sessions' with fields ['token', 'expiresTime']
@@ -91,9 +90,9 @@ module.exports = {
       {
         id: user.id,
       },
-      __SECRET__,
+      config.secret,
       {
-        expiresIn: __EXPIRES_TIME__,
+        expiresIn: config.expireTime,
       }
     );
 
