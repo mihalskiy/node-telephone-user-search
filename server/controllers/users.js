@@ -9,10 +9,10 @@
     }
 };*/
 
-const User = require('../../models').User;
+const User = require('../models/index').User;
 
 module.exports = {
-    sessionChecker(req, res, next) {
+    /*signup (req, res, next) {
 
         res.redirect('/login');
         if (req.session.user && req.cookies.user_sid) {
@@ -23,5 +23,17 @@ module.exports = {
         return User
         .then((contacts) => res.status(201).send(contacts))
         .catch((error) => res.status(400).send(error));
+    },*/
+    create (req, res, next) {
+        return User
+            .create({
+                userName: req.body.username,
+                telephoneNumber: req.body.telephoneNumber,
+                password: req.body.password
+            })
+        .then((contacts) => res.status(201).send(contacts))
+        .catch((error) => res.status(400).send(error));
     },
+
+
 };

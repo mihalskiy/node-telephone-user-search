@@ -1,15 +1,18 @@
 const contactsController = require('../controllers').contacts;
-const authController = require('../controllers/authorization').auth;
+const usersController = require('../controllers').users;
 
 
 module.exports = (app) => {
 
     // route for Home-Page
-    app.get('/', authController.sessionChecker);
+    app.get('/', (req, res) => res.status(200).send({
+        message: 'Welcome to the CONTACTS API!',
+    }));
 
-    /*// route for user signup
-    app.route('/signup')
-        .get(sessionChecker, (req, res) => {
+    // route for user signup
+    app.get('/signup', usersController.signup);
+    app.post('/signup', usersController.create);
+        /*.get(sessionChecker, (req, res) => {
             res.sendFile(__dirname + '/views/signup.html');
         })
         .post((req, res) => {
@@ -25,10 +28,10 @@ module.exports = (app) => {
                 .catch(error => {
                     res.redirect('/signup');
                 });
-        });
+        });*/
 
 
-// route for user Login
+/*// route for user Login
     app.route('/login')
         .get(sessionChecker, (req, res) => {
             res.sendFile(__dirname +'/views/login.html');
@@ -87,12 +90,11 @@ module.exports = (app) => {
 // route for handling 404 requests(unavailable routes)
     app.use(function (req, res, next) {
         res.status(404).send("Sorry can't find that!")
-    });
+    });*/
 
     // start the express server
     app.listen(app.get('port'), () => console.log(`App started on port ${app.get('port')}`));
 
-*/
 
 
     app.post('/contacts', contactsController.create);
