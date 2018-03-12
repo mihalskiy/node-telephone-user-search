@@ -1,23 +1,13 @@
 const contactsController = require('../controllers').contacts;
-const User = require('../models').user;
+const authController = require('../controllers/authorization').auth;
 
-// middleware function to check for logged-in users
-const sessionChecker = (req, res, next) => {
-    if (req.session.user && req.cookies.user_sid) {
-        res.redirect('/dashboard');
-    } else {
-        next();
-    }
-};
 
 module.exports = (app) => {
 
     // route for Home-Page
-    app.get('/', sessionChecker, (req, res) => {
-          res.redirect('/login');
-      });
+    app.get('/', authController.sessionChecker);
 
-    // route for user signup
+    /*// route for user signup
     app.route('/signup')
         .get(sessionChecker, (req, res) => {
             res.sendFile(__dirname + '/views/signup.html');
@@ -102,7 +92,7 @@ module.exports = (app) => {
     // start the express server
     app.listen(app.get('port'), () => console.log(`App started on port ${app.get('port')}`));
 
-
+*/
 
 
     app.post('/contacts', contactsController.create);
