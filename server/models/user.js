@@ -1,7 +1,8 @@
-const bcrypt = require('bcrypt');
+//const  bcrypt  = require ( 'bcryptjs' ) ;
+
 
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('user', {
+  const User = sequelize.define('user', {
       userName: {
           type: DataTypes.STRING,
           unique: true,
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
   },
-      {
+      /*{
           hooks: {
               beforeCreate: (user) => {
                   const salt = bcrypt.genSaltSync();
@@ -30,10 +31,10 @@ module.exports = (sequelize, DataTypes) => {
                   return bcrypt.compareSync(password, this.password);
               }
           }
-       }
+       }*/
   );
-  user.associate = function(models) {
+  User.associate = function(models) {
     // associations can be defined here
   };
-  return user;
+  return User;
 };
