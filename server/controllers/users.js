@@ -15,24 +15,8 @@ module.exports = {
         userName,
       },
     });
-    if (user) {
-      const token = jwt.sign(
-        {
-          user: user.id,
-        },
-        'IeUG345VTJjd4ty3fv',
-        {
-          expiresIn: 24 * 60 * 60,
-        }
-      );
 
-      res
-        .send(200, {
-          token,
-          id: user.id,
-          userName: user.userName,
-        });
-    } else {
+    if (!user) {
       try {
         const createdUser = await User
           .create({
@@ -41,14 +25,28 @@ module.exports = {
             password,
           });
 
+        const token = jwt.sign(
+          {
+            user: createdUser.id,
+          },
+          'IeUG345VTJjd4ty3fv',
+          {
+            expiresIn: 24 * 60 * 60,
+          }
+        );
         res
-          .status(201)
-          .send(createdUser);
+          .send(200, {
+            token,
+            id: createdUser.id,
+            userName: createdUser.userName,
+          });
       } catch (error) {
         res
           .status(400)
           .send(error);
       }
+    } else {
+      res.status(400).json('Username already exist!');
     }
   },
   login(req, res) {
