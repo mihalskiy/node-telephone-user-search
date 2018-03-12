@@ -52,12 +52,12 @@ module.exports = {
     }
   },
   login(req, res) {
-    const {username, password} = req.body;
+    const {userName, password} = req.body;
 
     return User
       .findOne({
         where: {
-          username,
+          userName,
         },
       })
       .then((user)=> {
