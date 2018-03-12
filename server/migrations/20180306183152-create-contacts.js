@@ -1,45 +1,46 @@
-'use strict';
+const tableName = 'Contacts';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Contacts', {
+    return queryInterface.createTable(tableName, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       phoneNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       firstName: {
-          type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       lastName: {
-          type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       email: {
-          type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
-        photoURL: {
-          type: Sequelize.STRING
+      photoURL: {
+        type: Sequelize.STRING,
       },
       companyName: {
-          type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       anotherPhoneNumber: {
-          type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Contacts');
-  }
+    return queryInterface.dropTable(tableName);
+  },
 };

@@ -1,11 +1,15 @@
 {
   "name": "postgres-express-react-node-tutorial",
   "version": "1.0.0",
-  "description": "",
+  "description": "If you dont have install node-js, please go this link [https://nodejs.org](https://nodejs.org)",
   "main": "index.js",
   "scripts": {
-    "start:dev": "./node_modules/.bin/nodemon ./bin/www -w app.js -w server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "nodemon ./bin/www -w app.js -w server",
+    "fix": "eslint --fix .",
+    "dockerLocal": "npm run predocker && docker run -e PAYLOAD_FILE=$npm_package_config_payloadFile $npm_package_config_veritoneEngine .",
+    "predocker": "docker build -t $npm_package_config_veritoneEngine .",
+    "docker": "docker tag $npm_package_config_veritoneEngine $npm_package_config_dockerHostUrl/$npm_package_config_veritoneOrgId/$npm_package_config_veritoneEngine:$npm_package_version",
+    "postdocker": "docker push $npm_package_config_dockerHostUrl/$npm_package_config_veritoneOrgId/$npm_package_config_veritoneEngine:$npm_package_version"
   },
   "keywords": [],
   "author": "",
@@ -14,24 +18,27 @@
     "@types/helmet": "0.0.37",
     "@types/morgan": "^1.7.35",
     "@types/sequelize": "^4.27.8",
-    "bcrypt": "^1.0.3",
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.2.0",
     "morgan": "^1.9.0",
-    "npm": "^5.7.1",
     "pg": "6.1.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.0.0"
   },
   "devDependencies": {
-    "eslint": "^2.13.1",
-    "eslint-config-airbnb": "^9.0.1",
-    "eslint-plugin-import": "^1.10.2",
-    "eslint-plugin-jsx-a11y": "^1.5.5",
-    "eslint-plugin-react": "^5.2.2",
-    "nodemon": "^1.11.0"
-  }
+    "nodemon": "^1.11.0",
+    "eslint": "^4.18.2",
+    "eslint-config-google": "^0.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mihalskiy/node-telephone-user-search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mihalskiy/node-telephone-user-search/issues"
+  },
+  "homepage": "https://github.com/mihalskiy/node-telephone-user-search#readme"
 }
