@@ -12,18 +12,6 @@
 const User = require('../models/index').User;
 
 module.exports = {
-    /*signup (req, res, next) {
-
-        res.redirect('/login');
-        if (req.session.user && req.cookies.user_sid) {
-            res.redirect('/dashboard');
-        } else {
-            next();
-        }
-        return User
-        .then((contacts) => res.status(201).send(contacts))
-        .catch((error) => res.status(400).send(error));
-    },*/
     create (req, res) {
         return User
             .create({
