@@ -39,6 +39,9 @@ module.exports = {
             expiresIn: __EXPIRES_TIME__,
           }
         );
+        // TODO create table 'sessions' with fields ['token', 'expiresTime']
+        // require('MODEL Sessions Table').create({token:  token, expiresTime: expiresTime })
+
         res
           .send(200, {
             auth: true,
@@ -100,13 +103,5 @@ module.exports = {
         auth: true,
         token,
       });
-  },
-  logout(req, res) {
-    if (req.session.user && req.cookies.user_sid) {
-      res.clearCookie('user_sid');
-      res.redirect('/');
-    } else {
-      res.redirect('/login');
-    }
   },
 };
