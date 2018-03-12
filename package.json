@@ -14,9 +14,10 @@
     "@types/helmet": "0.0.37",
     "@types/morgan": "^1.7.35",
     "@types/sequelize": "^4.27.8",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "morgan": "^1.7.0",
+    "morgan": "^1.9.0",
     "pg": "^6.2.4",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.0.0"
