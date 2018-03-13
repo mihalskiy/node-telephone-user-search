@@ -21,6 +21,7 @@ module.exports = {
       .create({
         phoneNumber: clearedTelephoneNumber,
         anotherPhoneNumber: clearedAnotherTelephoneNumber,
+
         firstName,
         lastName,
         email,
