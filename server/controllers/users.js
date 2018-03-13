@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const phone = require('phone');
 
 const config = require('../auth/config');
 
@@ -9,9 +10,11 @@ module.exports = {
   async register(req, res) {
     const {
       userName,
-      telephoneNumber,
+      phoneNumber,
       password,
     } = req.body;
+
+    const clearedTelephoneNumber = phone(phoneNumber)[0];
     const hashedPassword = bcrypt.hashSync(password, 8);
 
     const user = await User.findOne({
@@ -25,7 +28,7 @@ module.exports = {
         const createdUser = await User
           .create({
             userName,
-            telephoneNumber,
+            telephoneNumber: clearedTelephoneNumber,
             password: hashedPassword,
           });
 

@@ -30,6 +30,15 @@ module.exports = {
       anotherPhoneNumber: {
         type: Sequelize.STRING,
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'userId',
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

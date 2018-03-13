@@ -1,16 +1,32 @@
+const phone = require('phone');
+
 const {Contact} = require('../models');
 
 module.exports = {
   create(req, res) {
+    const {
+      phoneNumber,
+      anotherPhoneNumber,
+      firstName,
+      lastName,
+      email,
+      photoURL,
+      companyName,
+    } = req.body;
+
+    const clearedTelephoneNumber = phone(phoneNumber)[0];
+    const clearedAnotherTelephoneNumber = phone(anotherPhoneNumber)[0];
+
     return Contact
       .create({
-        phoneNumber: req.body.phoneNumber,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        photoURL: req.body.photoURL,
-        companyName: req.body.companyName,
-        anotherPhoneNumber: req.body.anotherPhoneNumber,
+        phoneNumber: clearedTelephoneNumber,
+        anotherPhoneNumber: clearedAnotherTelephoneNumber,
+
+        firstName,
+        lastName,
+        email,
+        photoURL,
+        companyName,
       })
       .then((contacts) => res.status(201).send(contacts))
       .catch((error) => res.status(400).send(error));

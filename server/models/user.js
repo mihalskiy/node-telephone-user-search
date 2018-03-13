@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
     },
-    telephoneNumber: {
+    phoneNumber: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Contact, {
+      foreignKey: 'userId',
+      as: 'Contact',
+    });
   };
   return User;
 };
