@@ -4,6 +4,7 @@
   "description": "If you dont have install node-js, please go this link [https://nodejs.org](https://nodejs.org)",
   "main": "index.js",
   "scripts": {
+    "start": "npm run start:dev",
     "start:dev": "nodemon ./bin/www -w app.js -w server",
     "fix": "eslint --fix .",
     "dockerLocal": "npm run predocker && docker run -e PAYLOAD_FILE=$npm_package_config_payloadFile $npm_package_config_veritoneEngine .",
@@ -27,7 +28,8 @@
     "morgan": "^1.9.0",
     "pg": "6.1.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.0.0"
+    "sequelize": "^4.0.0",
+    "swaggerize-ui": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
