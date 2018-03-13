@@ -1,0 +1,684 @@
+swagger: '2.0'
+info:
+  title: Calvus API
+  description: Note everything on open-sourced self-hosted note-taking app
+  version: "1.0.0"
+# host: calvus.example.com
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /api/v1
+produces:
+  - application/json
+
+
+
+paths:
+
+  /auth:
+    post:
+      summary: Authorize
+      description: |
+        Get token based on given credentials
+      parameters:
+        - name: email
+          description: Email of user who wants to authenticate
+          in: query
+          required: true
+          type: string
+        - name: password
+          description: Password of user who wants to authenticate
+          in: query
+          required: true
+          type: string
+      responses:
+        201:
+          description: Token
+          schema:
+            $ref: "#/definitions/Token"
+        400:
+          description: Not enough information provided
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Wrong password
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such user
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - auth
+
+
+
+
+  /users:
+    post:
+      summary: Register
+      description: |
+        Register user with given name and password
+      parameters:
+        - name: email
+          description: Email of the user to be created
+          in: query
+          required: true
+          type: string
+        - name: password
+          description: Password of the user to be created
+          in: query
+          required: true
+          type: string
+      responses:
+        201:
+          description: User succesfully created. Created user returned
+          schema:
+            $ref: '#/definitions/User'
+        400:
+          description: Not enough information provided
+          schema:
+            $ref: '#/definitions/Error'
+        409:
+          description: Username already in use
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - auth
+
+
+
+
+  /user:
+    get:
+      summary: Get user
+      description: |
+        Get info about user
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate and to identify user
+          required: true
+          in: header
+          type: string
+      responses:
+        200:
+          description: User
+          schema:
+            $ref: '#/definitions/User'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such user
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - auth
+
+
+
+
+    put:
+      summary: Update user
+      description: |
+        Update info about user
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate and to identify user
+          required: true
+          in: header
+          type: string
+        - name: email
+          description: New email to be used by user
+          requred: false
+          in: query
+          type: string
+        - name: password
+          description: New password to be used by user
+          requred: false
+          in: query
+          type: string
+      responses:
+        200:
+          description: User
+          schema:
+            $ref: '#/definitions/User'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such user
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - auth
+
+
+    delete:
+      summary: Delete user
+      description: |
+        Delete account
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate and to identify user
+          required: true
+          in: header
+          type: string
+      responses:
+        200:
+          description: UserAccount removed
+          schema:
+            $ref: '#/definitions/User'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such user
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - auth
+
+
+
+
+  /notepads:
+    get:
+      summary: Get notepads
+      description: |
+        Get list of all user\'s notepads
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: after
+          description: Timestamp specifing the date the notepads we want to be returned were updated after
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: An array of notepads
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Notepad'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - notepad
+
+
+    post:
+      summary: Add notepad
+      description: |
+        Add notepad
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: name
+          description: Name of the notepad to be created
+          in: query
+          required: true
+          type: string
+      tags:
+        - notepad
+      responses:
+        200:
+          description: The created notepad
+          schema:
+            $ref: "#/definitions/Notepad"
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+
+
+
+  /notepads/{notepad_id}:
+    get:
+      summary: Get notepad
+      description: |
+        Get requested notepad
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          description: Id of the requested notepad
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: The notepad with given id
+          schema:
+            $ref: "#/definitions/Notepad"
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - notepad
+
+
+
+
+    put:
+      summary: Update notepad
+      description: |
+        Update requested notepad
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          description: Id of the requested notepad
+          in: path
+          required: true
+          type: integer
+        - name: name
+          description: New name of the notepad
+          in: query
+          required: true
+          type: string
+      responses:
+        200:
+          description: The notepad with given id
+          schema:
+            $ref: "#/definitions/Notepad"
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - notepad
+
+
+
+
+    delete:
+      summary: Delete notepad
+      description: |
+        Delete requested notepad
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          description: Id of the requested notepad
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Deleted notepad
+          schema:
+            $ref: '#/definitions/Notepad'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - notepad
+
+
+
+
+
+  /notes/{notepad_id}:
+    get:
+      summary: Get notes
+      description: |
+        Get list of notes for a given notepad
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          description: Id of the notepad the note is in
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: An array of notes in notepad with id notepad_id
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Note'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - note
+
+
+
+
+
+    post:
+      summary: Add note
+      description: |
+        Add a note to the given notepad
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          type: integer
+          description: ID of the notepad the note is in
+          in: path
+          required: true
+        - name: content
+          type: string
+          description: Content of the note to be added
+          in: query
+          required: false
+        - name: title
+          type: string
+          description: Title of the note to be added. If not given, first 50 characters of content will be used
+          in: query
+          required: false
+        - name: colortag_id
+          type: integer
+          description: ID of the note colortag; if 0 - no colortag specified (0 by default)
+          in: query
+          required: false
+      responses:
+        200:
+          description: An added note
+          schema:
+            $ref: '#/definitions/Note'
+        400:
+          description: Not enough information provided
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - note
+
+
+
+
+  /notes/{notepad_id}/{note_id}:
+    get:
+      summary: Get note
+      description: |
+        Get requested note
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          type: integer
+          description: ID of the notepad the note is in
+          in: path
+          required: true
+        - name: note_id
+          type: integer
+          description: ID of the note
+          in: path
+          required: true
+      responses:
+        200:
+          description: Requested note
+          schema:
+            $ref: "#/definitions/Note"
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such note or notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - note
+
+
+
+
+    put:
+      summary: Update note
+      description: |
+        Update requested note
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          type: integer
+          description: ID of the notepad the note is in
+          in: path
+          required: true
+        - name: note_id
+          type: integer
+          description: ID of the note
+          in: path
+          required: true
+        - name: content
+          type: string
+          description: Content of the note to be added
+          in: query
+          required: false
+        - name: title
+          type: string
+          description: Title of the note to be added. If not given, first 50 characters of content will be used
+          in: query
+          required: false
+        - name: new_notepad_id
+          type: integer
+          description: ID of the notepad to move the note to
+          in: query
+          required: false
+        - name: colortag_id
+          type: integer
+          description: ID of the new note colortag
+          in: query
+          required: false
+      responses:
+        200:
+          description: Updated note.
+          schema:
+            $ref: "#/definitions/Note"
+        400:
+          description: Not enough information provided
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such note or notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - note
+
+
+
+
+
+    delete:
+      summary: Delete note
+      description: |
+        Delete requested note
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+        - name: notepad_id
+          type: integer
+          description: ID of the notepad the note is in
+          in: path
+          required: true
+        - name: note_id
+          type: integer
+          description: ID of the note
+          in: path
+          required: true
+      responses:
+        200:
+          description: Note deleted
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Note'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: No such note or notepad
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - note
+
+
+
+  /colortags:
+    get:
+      summary: Get colortags
+      description: |
+        Get colortags
+      parameters:
+        - name: Authorization
+          description: Acquired token to authenticate
+          required: true
+          in: header
+          type: string
+      responses:
+        200:
+          description: An array of colortags
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Colortag'
+        401:
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/Error'
+      tags:
+        - colortag
+
+
+
+
+
+definitions:
+  Token:
+    type: object
+    properties:
+      token:
+        type: string
+        description: Token used to authenticate user.
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: User\'s id.
+      email:
+        type: string
+        description: User\'s email.
+  Notepad:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier representing id of a specific notepad.
+      last_modified:
+        type: string
+        description: Timestamp, when the notepad was last modified.
+      name:
+        type: string
+        description: Name of notepad.
+  Note:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier representing id of a specific note.
+      last_modified:
+        type: string
+        description: Timestamp, when the note was last modified.
+      title:
+        type: string
+        description: Title of the note. By default first 50 characters of its content.
+      content:
+        type: string
+        description: Note's content.
+      colortag_id:
+        type: integer
+        description: ID of the note's colortag.
+      notepad_id:
+        type: integer
+        description: ID of the notepad the note is in.
+  Colortag:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: Unique identifier representing id of a specific colortag.
+      color:
+        type: string
+        description: Color (in HEX) of the colortag.
+  Error:
+    type: object
+    properties:
+      error:
+        type: string
+        description: Error description.
