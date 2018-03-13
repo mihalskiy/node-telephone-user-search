@@ -1,4 +1,4 @@
-const tableName = 'Contacts';
+const tableName = 'Users';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -9,25 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      phoneNumber: {
+      userName: {
         type: Sequelize.STRING,
       },
-      firstName: {
+      telephoneNumber: {
         type: Sequelize.STRING,
       },
-      lastName: {
-        type: Sequelize.STRING,
-      },
-      email: {
-        type: Sequelize.STRING,
-      },
-      photoURL: {
-        type: Sequelize.STRING,
-      },
-      companyName: {
-        type: Sequelize.STRING,
-      },
-      anotherPhoneNumber: {
+      password: {
         type: Sequelize.STRING,
       },
       createdAt: {

@@ -1,14 +1,24 @@
 const contactsController = require('../controllers').contacts;
+const usersController = require('../controllers').users;
+const verifyToken = require('../auth/verifyToken');
 
 module.exports = (app) => {
-  app.get('/', (req, res) => res.status(200).send({
-    message: 'Welcome to the Todos API!',
-  }));
+  app.post('/register', usersController.register);
+  app.post('/login', usersController.login);
 
-  app.post('/contacts', contactsController.create);
-  app.get('/contacts', contactsController.list);
-/*
-  app.get('/contacts/:contactId', contactsController.retrieve);
-*/
+  app.post('/contacts', verifyToken, contactsController.create);
+  app.get('/contacts', verifyToken, contactsController.list);
+
+  app.use((req, res) => {
+    res
+      .status(404)
+      .send('Sorry can\'t find that!');
+  });
+
+  app.get('*', (req, res) => res
+    .status(200)
+    .send({
+      message: 'Welcome to the beginning of nothingness.',
+    }));
 };
 
