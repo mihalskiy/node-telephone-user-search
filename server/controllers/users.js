@@ -38,8 +38,6 @@ module.exports = {
             expiresIn: config.expireTime,
           }
         );
-        // TODO create table 'sessions' with fields ['token', 'expiresTime']
-        // require('MODEL Sessions Table').create({token:  token, expiresTime: expiresTime })
 
         res
           .send(200, {
