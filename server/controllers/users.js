@@ -7,6 +7,7 @@ const {User} = require('../models');
 
 module.exports = {
   async register(req, res) {
+    console.log(req.body);
     const {
       userName,
       telephoneNumber,

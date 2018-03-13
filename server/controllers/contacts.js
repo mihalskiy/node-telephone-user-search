@@ -1,10 +1,13 @@
 const {Contact} = require('../models');
+const phone = require('phone');
+const { phoneNumber } = req.body;
 
 module.exports = {
   create(req, res) {
+    const clearedNumber = phone(phoneNumber)[0];
     return Contact
       .create({
-        phoneNumber: req.body.phoneNumber,
+        phoneNumber: req.body.clearedNumber,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -18,6 +21,7 @@ module.exports = {
 
 
   list(req, res) {
+    console.log(req.user.id);
     const opts = {
       where: {},
     };
