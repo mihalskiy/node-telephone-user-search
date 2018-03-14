@@ -4,9 +4,11 @@
   "description": "node-telephone-user-search \n If you dont have install node-js, please go this link [https://nodejs.org](https://nodejs.org)",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start:dev",
-    "start:dev": "nodemon ./bin/www -w app.js -w server  -e js,json,yaml",
+    "//prestart": "npm run validateSwagger && npm run fix",
+    "start": "nodemon ./bin/www -w app.js -w server  -e js,json,yaml",
+    "validateSwagger": "swagger-tools validate ./server/middleware/swagger/swaggerDocs.yaml",
     "fix": "eslint --fix .",
+    "createMigration": "sequelize migration:create --name migration",
     "dockerLocal": "npm run predocker && docker run -e PAYLOAD_FILE=$npm_package_config_payloadFile $npm_package_config_veritoneEngine .",
     "predocker": "docker build -t $npm_package_config_veritoneEngine .",
     "docker": "docker tag $npm_package_config_veritoneEngine $npm_package_config_dockerHostUrl/$npm_package_config_veritoneOrgId/$npm_package_config_veritoneEngine:$npm_package_version",
@@ -31,12 +33,14 @@
     "pg-hstore": "^2.3.2",
     "phone": "^2.0.0-rc.1",
     "sequelize": "^4.0.0",
-    "swaggerize-ui": "^1.0.1"
+    "swagger-express-middleware": "^1.0.0-alpha.12",
+    "swagger-ui-express": "^2.0.15"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
     "eslint": "^4.18.2",
-    "eslint-config-google": "^0.9.1"
+    "eslint-config-google": "^0.9.1",
+    "nodemon": "^1.11.0",
+    "swagger-tools": "^0.10.3"
   },
   "repository": {
     "type": "git",

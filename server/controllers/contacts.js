@@ -56,9 +56,9 @@ module.exports = {
       const contacts = await Contact.bulkCreate(list, {
         returning: true,
       });
-      res.status(201).send(contacts);
+      return res.status(201).send(contacts);
     } catch (error) {
-      res.status(400).send(error);
+      return res.status(400).send(error);
     }
   },
 

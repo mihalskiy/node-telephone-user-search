@@ -15,18 +15,26 @@ module.exports = {
     } = req.body;
 
     if (!userName || !phoneNumber || !password) {
-      res
+      return res
         .status(400)
         .send('Fields [userName, phoneNumber, password] are required');
     }
+    console.log('password', password);
     const clearedTelephoneNumber = phone(phoneNumber)[0];
     const hashedPassword = bcrypt.hashSync(password, 8);
 
-    const user = await User.findOne({
-      where: {
-        userName,
-      },
-    });
+    let user;
+    try {
+      user = await User.findOne({
+        where: {
+          userName,
+        },
+      });
+    } catch (error) {
+      return res
+        .status(400)
+        .send(error);
+    }
 
     if (!user) {
       try {
@@ -47,7 +55,7 @@ module.exports = {
           }
         );
 
-        res
+        return res
           .send(200, {
             auth: true,
             token,
@@ -55,12 +63,12 @@ module.exports = {
             userName: createdUser.userName,
           });
       } catch (error) {
-        res
+        return res
           .status(400)
           .send(error);
       }
     } else {
-      res.
+      return res.
         status(400)
         .send('Username already exist!');
     }
@@ -113,7 +121,7 @@ module.exports = {
       }
     );
 
-    res
+    return res
       .status(200)
       .send({
         auth: true,

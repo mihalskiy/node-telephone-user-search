@@ -1,6 +1,9 @@
-const swaggerUi = require('swaggerize-ui');
+// const swaggerUi = require('swaggerize-ui');
 const jsYaml = require('js-yaml');
 const fs = require('fs');
+
+const middleware = require('swagger-express-middleware');
+const swaggerUi = require('swagger-ui-express');
 
 function initSwagger(app) {
   const yamlPath =
@@ -14,13 +17,23 @@ function initSwagger(app) {
   const yamlNativeObject = jsYaml.safeLoad(yamlData);
   // console.log('yamlNativeObject', yamlNativeObject);
 
+
+  app.use('/docs', (req, res, next) => {
+    next();
+  }, swaggerUi.serve, swaggerUi.setup(yamlNativeObject));
+
   app.use('/api-docs', (req, res) => {
     res.json(yamlNativeObject);
   });
 
-  app.use('/docs', swaggerUi({
-    docs: '/api-docs', // from the express route above.
-  }));
+  middleware(yamlNativeObject, app, (err, middleware) => {
+    app.use(
+      middleware.metadata(),
+      // middleware.CORS(),
+      middleware.files(),
+      middleware.parseRequest(),
+      middleware.validateRequest());
+  });
 
   console.log('The Swagger docs availabe at http://localhost:8000/docs');
 }
