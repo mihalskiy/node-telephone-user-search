@@ -69,9 +69,9 @@ module.exports = (sequelize, DataTypes) => {
   });
   Contact.associate = (models) => {
     Contact.belongsTo(models.User, {
-        foreignKey: 'userId',
-        onDelete: 'CASCADE',
-      });
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
   };
   return Contact;
 };

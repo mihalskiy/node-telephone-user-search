@@ -1,19 +1,93 @@
 swagger: '2.0'
 info:
-  title: Calvus API
-  description: Note everything on open-sourced self-hosted note-taking app
-  version: "1.0.0"
+  version: '1.0'
+  title: 'node-telephone-user-search'
+  description: 'Node REST API node-telephone-user-search'
+#basePath: '/events'
 # host: calvus.example.com
-schemes:
-  - http
 # will be prefixed to all paths
-basePath: /api/v1
+#basePath: /api/v1
+consumes:
+  - application/json
+  - application/vnd.api+json
 produces:
   - application/json
-
-
+  - application/vnd.api+json
+parameters:
+  Authorization:
+    name: Authorization
+    in: header
+    type: string
+    required: false
+    description: Authorization token
+  jwt:
+    name: jwt
+    in: query
+    type: string
+    required: false
+    description: Authorization jwt token
+  eventId:
+    name: eventId
+    in: path
+    required: true
+    type: integer
+  limit:
+    name: limit
+    in: query
+    description: Max records to return per page
+    type: integer
+  sort:
+    name: sort
+    in: query
+    type: array
+    items:
+      type: array
+      items:
+        type: string
 
 paths:
+
+  /register:
+    post:
+      produces:
+        - application/json
+        - application/vnd.api+json
+      consumes:
+        - application/json
+        - application/vnd.api+json
+      parameters:
+#        - $ref: '#/parameters/Authorization'
+        - name: userName
+          in: body
+          required: true
+          type: string
+        - name: phoneNumber
+          in: body
+          required: true
+          type: string
+        - name: password
+          in: body
+          required: true
+          type: string
+#      responses:
+#        201:
+#          description: Token
+#          schema:
+#            $ref: "#/definitions/Token"
+#        400:
+#          description: Not enough information provided
+#          schema:
+#            $ref: '#/definitions/Error'
+#        401:
+#          description: Wrong password
+#          schema:
+#            $ref: '#/definitions/Error'
+#        404:
+#          description: No such user
+#          schema:
+#            $ref: '#/definitions/Error'
+#      tags:
+#        - auth
 
   /auth:
     post:

@@ -14,6 +14,11 @@ module.exports = {
       password,
     } = req.body;
 
+    if (!userName || !phoneNumber || !password) {
+      res
+        .status(400)
+        .send('Fields [userName, phoneNumber, password] are required');
+    }
     const clearedTelephoneNumber = phone(phoneNumber)[0];
     const hashedPassword = bcrypt.hashSync(password, 8);
 
@@ -55,11 +60,22 @@ module.exports = {
           .send(error);
       }
     } else {
-      res.status(400).json('Username already exist!');
+      res.
+        status(400)
+        .send('Username already exist!');
     }
   },
   async login(req, res) {
-    const {userName, password} = req.body;
+    const {
+      userName,
+      password,
+    } = req.body;
+
+    if (!userName || !password) {
+      res
+        .status(400)
+        .send('Fields [userName, password] are required');
+    }
 
     const user = await User
       .findOne({

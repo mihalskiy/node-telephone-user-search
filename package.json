@@ -1,7 +1,7 @@
 {
-  "name": "postgres-express-react-node-tutorial",
+  "name": "node-telephone-user-search",
   "version": "1.0.0",
-  "description": "If you dont have install node-js, please go this link [https://nodejs.org](https://nodejs.org)",
+  "description": "node-telephone-user-search \n If you dont have install node-js, please go this link [https://nodejs.org](https://nodejs.org)",
   "main": "index.js",
   "scripts": {
     "start": "npm run start:dev",

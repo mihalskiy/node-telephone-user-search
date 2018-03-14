@@ -32,6 +32,36 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 
+  async createList(req, res) {
+    if (!req.body.list || !req.body.list.length) {
+      throw new Error('list empty, should provide array of objects');
+    }
+
+    const list = req.body.list.map(async (item) => {
+      const clearedTelephoneNumber = phone(item.phoneNumber)[0];
+      const clearedAnotherTelephoneNumber = phone(item.anotherPhoneNumber)[0];
+
+      return {
+        firstName: item.firstName,
+        lastName: item.lastName,
+        email: item.email,
+        photoURL: item.photoURL,
+        companyName: item.companyName,
+        phoneNumber: clearedTelephoneNumber,
+        anotherPhoneNumber: clearedAnotherTelephoneNumber,
+      };
+    });
+
+    try {
+      const contacts = await Contact.bulkCreate(list, {
+        returning: true,
+      });
+      res.status(201).send(contacts);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  },
+
 
   list(req, res) {
     const opts = {

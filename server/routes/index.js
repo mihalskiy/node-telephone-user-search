@@ -6,6 +6,7 @@ module.exports = (app) => {
   app.post('/register', usersController.register);
   app.post('/login', usersController.login);
 
+  app.post('/contacts/list', verifyToken, contactsController.createList);
   app.post('/contacts', verifyToken, contactsController.create);
   app.get('/contacts', verifyToken, contactsController.list);
 
