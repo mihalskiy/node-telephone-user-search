@@ -1,14 +1,17 @@
+const {
+  user,
+} = require('../controllers');
+
 const contactsController = require('../controllers').contacts;
-const usersController = require('../controllers').users;
 const verifyToken = require('../auth/verifyToken');
 
 module.exports = (app) => {
-  app.post('/register', usersController.register);
-  app.post('/login', usersController.login);
+  app.post('/register', user.register);
+  app.post('/login', user.login);
 
   app.post('/contacts/list', verifyToken, contactsController.createList);
   app.post('/contacts', verifyToken, contactsController.create);
-  app.get('/contacts', verifyToken, contactsController.list);
+  app.get('/contacts/me', verifyToken, contactsController.list);
 
   app.use((req, res) => {
     res

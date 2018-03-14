@@ -2,14 +2,15 @@ const jwt = require('jsonwebtoken');
 const config = require('./config');
 
 function verifyToken(req, res, next) {
-  const token = req.headers['Authorization'];
+  const token = req.headers.authorization || req.headers.Authorization;
 
   if (!token) {
     return res
       .status(403)
       .send({
         auth: false,
-        message: 'No token provided.',
+        message: 'No token provided. ' +
+        'Please provide Authorization header with jwt token',
       });
   }
 

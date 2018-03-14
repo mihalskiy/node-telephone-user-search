@@ -5,22 +5,22 @@ const {Contact} = require('../models');
 module.exports = {
   create(req, res) {
     const {
-      phoneNumber,
-      anotherPhoneNumber,
       firstName,
       lastName,
       email,
       photoURL,
       companyName,
+      phoneNumber,
+      anotherPhoneNumber,
     } = req.body;
 
     const clearedPhoneNumber = phone(phoneNumber)[0];
-    const clearedAnotherTelephoneNumber = phone(anotherPhoneNumber)[0];
+    const clearedAnotherPhoneNumber = phone(anotherPhoneNumber)[0];
 
     return Contact
       .create({
         phoneNumber: clearedPhoneNumber,
-        anotherPhoneNumber: clearedAnotherTelephoneNumber,
+        anotherPhoneNumber: clearedAnotherPhoneNumber,
 
         firstName,
         lastName,
@@ -38,8 +38,11 @@ module.exports = {
     }
 
     const list = req.body.list.map(async (item) => {
-      const clearedPhoneNumber = phone(item.phoneNumber)[0];
-      const clearedAnotherTelephoneNumber = phone(item.anotherPhoneNumber)[0];
+      const clearedPhoneNumber = phone(item.phoneNumber)[0]
+        || item.phoneNumber.replace(/[\(\)\.\-\ \+\x]/g, '');
+
+      const clearedAnotherPhoneNumber = phone(item.anotherPhoneNumber)[0]
+        || item.anotherPhoneNumber.replace(/[\(\)\.\-\ \+\x]/g, '');
 
       return {
         firstName: item.firstName,
@@ -48,7 +51,7 @@ module.exports = {
         photoURL: item.photoURL,
         companyName: item.companyName,
         phoneNumber: clearedPhoneNumber,
-        anotherPhoneNumber: clearedAnotherTelephoneNumber,
+        anotherPhoneNumber: clearedAnotherPhoneNumber,
       };
     });
 
@@ -62,8 +65,7 @@ module.exports = {
     }
   },
 
-
-  list(req, res) {
+  async list(req, res) {
     const opts = {
       where: {},
     };
@@ -74,27 +76,40 @@ module.exports = {
       };
     }
 
-    if (req.query.phoneNumber) {
-      opts.where.phoneNumber = {
-        $like: '%' + req.query.phoneNumber +'%',
-      };
-    }
-
-    if (req.query.companyName) {
-      opts.where.companyName = {
-        $like: '%' + req.query.companyName +'%',
-      };
-    }
-
     if (req.query.lastName) {
       opts.where.lastName = {
         $like: '%' + req.query.lastName +'%',
       };
     }
 
-    return Contact.findAll(opts)
-      .then((contacts) => res.status(200).send(contacts))
-      .catch((error) => res.status(400).send(error));
+    if (req.query.email) {
+      opts.where.email = {
+        $like: '%' + req.query.email +'%',
+      };
+    }
+
+    if (req.query.companyName) {
+      opts.where.email = {
+        $like: '%' + req.query.email +'%',
+      };
+    }
+
+    if (req.query.phoneNumber) {
+      opts.where.phoneNumber = {
+        $like: '%' + req.query.phoneNumber +'%',
+      };
+    }
+
+    try {
+      const contacts = await Contact.findAll(opts);
+      return res
+        .status(200)
+        .send(contacts);
+    } catch (error) {
+      return res
+        .status(400)
+        .send(error);
+    }
   },
 
   retrieve(req, res) {

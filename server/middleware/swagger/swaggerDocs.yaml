@@ -64,13 +64,10 @@ paths:
             properties:
               userName:
                 type: string
-                required: true
               phoneNumber:
                 type: string
-                required: true
               password:
                 type: string
-                required: true
       responses:
         201:
           description: Token
@@ -96,10 +93,90 @@ paths:
             properties:
               userName:
                 type: string
-                required: true
               password:
                 type: string
-                required: true
+      responses:
+        201:
+          description: Token
+          schema:
+            $ref: "#/definitions/Token"
+
+
+  /contacts/list:
+    post:
+      description: Create contact list
+      produces:
+        - application/json
+        - application/vnd.api+json
+      consumes:
+        - application/json
+        - application/vnd.api+json
+      parameters:
+#      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1MjEwMzkyOTQsImV4cCI6MTUyMTEyNTY5NH0.7iNqO10QfvtUMNxVZGooewp8efA7mdEYOCHphUL_UN8
+        - $ref: '#/parameters/Authorization'
+        - name: data
+          in: body
+          required: true
+          description: IDs of companies
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    email:
+                      type: string
+                    photoURL:
+                      type: string
+                    companyName:
+                      type: string
+                    phoneNumber:
+                      type: string
+                    anotherPhoneNumber:
+                      type: string
+      responses:
+        201:
+          description: Token
+          schema:
+            $ref: "#/definitions/Token"
+
+
+  /contacts/me:
+    get:
+      description: Get contact list
+      produces:
+        - application/json
+        - application/vnd.api+json
+      consumes:
+        - application/json
+        - application/vnd.api+json
+      parameters:
+#      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1MjEwMzkyOTQsImV4cCI6MTUyMTEyNTY5NH0.7iNqO10QfvtUMNxVZGooewp8efA7mdEYOCHphUL_UN8
+        - $ref: '#/parameters/Authorization'
+        - name: firstName
+          in: query
+          required: false
+        - name: lastName
+          in: query
+          required: false
+        - name: email
+          in: query
+          required: false
+        - name: companyName
+          in: query
+          required: false
+        - name: phoneNumber
+          in: query
+          required: false
+        - name: anotherPhoneNumber
+          in: query
+          required: false
       responses:
         201:
           description: Token

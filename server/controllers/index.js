@@ -1,7 +1,11 @@
 const contacts = require('./contacts');
-const users = require('./users');
+const register = require('./user/register');
+const login = require('./user/login');
 
 module.exports = {
   contacts,
-  users,
+  user: {
+    register,
+    login,
+  },
 };
