@@ -5,8 +5,8 @@ function logging(msg) {
 module.exports = {
   'development': {
     'username': 'postgres',
-    'password': 'newPassword',
-    'database': 'ruslan',
+    'password': '555666',
+    'database': 'phonelist',
     'host': '127.0.0.1',
     'port': 5432,
     // 'logging': logging,

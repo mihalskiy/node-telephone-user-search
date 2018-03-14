@@ -14,12 +14,12 @@ module.exports = {
       companyName,
     } = req.body;
 
-    const clearedTelephoneNumber = phone(phoneNumber)[0];
+    const clearedPhoneNumber = phone(phoneNumber)[0];
     const clearedAnotherTelephoneNumber = phone(anotherPhoneNumber)[0];
 
     return Contact
       .create({
-        phoneNumber: clearedTelephoneNumber,
+        phoneNumber: clearedPhoneNumber,
         anotherPhoneNumber: clearedAnotherTelephoneNumber,
 
         firstName,
@@ -38,7 +38,7 @@ module.exports = {
     }
 
     const list = req.body.list.map(async (item) => {
-      const clearedTelephoneNumber = phone(item.phoneNumber)[0];
+      const clearedPhoneNumber = phone(item.phoneNumber)[0];
       const clearedAnotherTelephoneNumber = phone(item.anotherPhoneNumber)[0];
 
       return {
@@ -47,7 +47,7 @@ module.exports = {
         email: item.email,
         photoURL: item.photoURL,
         companyName: item.companyName,
-        phoneNumber: clearedTelephoneNumber,
+        phoneNumber: clearedPhoneNumber,
         anotherPhoneNumber: clearedAnotherTelephoneNumber,
       };
     });

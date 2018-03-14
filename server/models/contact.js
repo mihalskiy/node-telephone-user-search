@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: {
-          args: 10,
+          args: 5,
           msg: 'Phone number must be atleast 10 characters in length',
         },
       },

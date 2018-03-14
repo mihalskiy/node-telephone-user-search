@@ -19,9 +19,10 @@ module.exports = {
         .status(400)
         .send('Fields [userName, phoneNumber, password] are required');
     }
-    console.log('password', password);
-    const clearedTelephoneNumber = phone(phoneNumber)[0];
+    const clearedPhoneNumber =
+      phone(phoneNumber)[0] || phoneNumber.replace(/[\(\)\.\-\ \+\x]/g, '');
     const hashedPassword = bcrypt.hashSync(password, 8);
+    console.log('clearedPhoneNumber', clearedPhoneNumber);
 
     let user;
     try {
@@ -41,7 +42,7 @@ module.exports = {
         const createdUser = await User
           .create({
             userName,
-            telephoneNumber: clearedTelephoneNumber,
+            phoneNumber: clearedPhoneNumber,
             password: hashedPassword,
           });
 
