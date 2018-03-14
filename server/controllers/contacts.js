@@ -14,13 +14,13 @@ module.exports = {
       companyName,
     } = req.body;
 
-    const clearedTelephoneNumber = phone(phoneNumber)[0];
-    const clearedAnotherTelephoneNumber = phone(anotherPhoneNumber)[0];
+    //const clearedTelephoneNumber = phone(phoneNumber)[0];
+    //const clearedAnotherTelephoneNumber = phone(anotherPhoneNumber)[0];
 
     return Contact
       .create({
-        phoneNumber: clearedTelephoneNumber,
-        anotherPhoneNumber: clearedAnotherTelephoneNumber,
+        phoneNumber: phoneNumber,
+        anotherPhoneNumber: anotherPhoneNumber,
 
         firstName,
         lastName,
