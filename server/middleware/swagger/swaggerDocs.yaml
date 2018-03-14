@@ -4,7 +4,7 @@ info:
   title: 'node-telephone-user-search'
   description: 'Node REST API node-telephone-user-search'
 basePath: '/'
-# host: calvus.example.com
+# host: example.com
 consumes:
   - application/json
   - application/vnd.api+json
