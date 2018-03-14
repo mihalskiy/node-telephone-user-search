@@ -9,9 +9,18 @@ module.exports = (app) => {
   app.post('/register', user.register);
   app.post('/login', user.login);
 
-  app.post('/contacts/list', verifyToken, contactsController.createList);
-  app.post('/contacts', verifyToken, contactsController.create);
-  app.get('/contacts/me', verifyToken, contactsController.myList);
+  app.post('/contacts/list', verifyToken,
+    contactsController.createList);
+
+  app.get('/contacts/listByNumber', verifyToken,
+    contactsController.findAllByNumber);
+
+  app.get('/contacts/listByName', verifyToken,
+    contactsController.findAllByName);
+
+  // app.post('/contacts', verifyToken, contactsController.create);
+  // Отримання списку імен по номеру
+  // Отримання списку номерів з іменами по імені
 
   app.use((req, res) => {
     res

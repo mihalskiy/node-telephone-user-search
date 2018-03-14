@@ -1,4 +1,3 @@
-// const swaggerUi = require('swaggerize-ui');
 const jsYaml = require('js-yaml');
 const fs = require('fs');
 

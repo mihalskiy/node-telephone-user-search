@@ -82,7 +82,44 @@ module.exports = {
     }
   },
 
-  async myList(req, res) {
+  async findAllByNumber(req, res) {
+    const {
+      phoneNumber,
+      anotherPhoneNumber,
+    } = req.query;
+
+    const opts = {
+      where: {
+        // userId: req.userId,
+      },
+    };
+
+    if (phoneNumber) {
+      opts.where.phoneNumber = {
+        $like: `%${phoneNumber}%`,
+      };
+    }
+
+    if (anotherPhoneNumber) {
+      opts.where.anotherPhoneNumber = {
+        $like: `%${anotherPhoneNumber}%`,
+      };
+    }
+
+    try {
+      const contacts = await Contact.findAll(opts);
+
+      return res
+        .status(200)
+        .send(contacts);
+    } catch (error) {
+      return res
+        .status(400)
+        .send(error);
+    }
+  },
+
+  async findAllByName(req, res) {
     const opts = {
       where: {
         userId: req.userId,
@@ -110,12 +147,6 @@ module.exports = {
     if (req.query.companyName) {
       opts.where.email = {
         $like: '%' + req.query.email +'%',
-      };
-    }
-
-    if (req.query.phoneNumber) {
-      opts.where.phoneNumber = {
-        $like: '%' + req.query.phoneNumber +'%',
       };
     }
 

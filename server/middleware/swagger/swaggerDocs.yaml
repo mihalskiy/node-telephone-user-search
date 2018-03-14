@@ -5,8 +5,6 @@ info:
   description: 'Node REST API node-telephone-user-search'
 basePath: '/'
 # host: calvus.example.com
-# will be prefixed to all paths
-#basePath: /api/v1
 consumes:
   - application/json
   - application/vnd.api+json
@@ -146,10 +144,9 @@ paths:
           schema:
             $ref: "#/definitions/Token"
 
-
-  /contacts/me:
+  /contacts/listByNumber:
     get:
-      description: Get contact list
+      description: Get contact listByNumber
       produces:
         - application/json
         - application/vnd.api+json
@@ -157,7 +154,29 @@ paths:
         - application/json
         - application/vnd.api+json
       parameters:
-#      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1MjEwMzkyOTQsImV4cCI6MTUyMTEyNTY5NH0.7iNqO10QfvtUMNxVZGooewp8efA7mdEYOCHphUL_UN8
+        - $ref: '#/parameters/Authorization'
+        - name: phoneNumber
+          in: query
+          required: false
+        - name: anotherPhoneNumber
+          in: query
+          required: false
+      responses:
+        201:
+          description: Token
+          schema:
+            $ref: "#/definitions/Token"
+
+  /contacts/listByName:
+    get:
+      description: Get contact listByName
+      produces:
+        - application/json
+        - application/vnd.api+json
+      consumes:
+        - application/json
+        - application/vnd.api+json
+      parameters:
         - $ref: '#/parameters/Authorization'
         - name: firstName
           in: query
@@ -171,18 +190,11 @@ paths:
         - name: companyName
           in: query
           required: false
-        - name: phoneNumber
-          in: query
-          required: false
-        - name: anotherPhoneNumber
-          in: query
-          required: false
       responses:
         201:
           description: Token
           schema:
             $ref: "#/definitions/Token"
-
 
 #
 #  /login:
