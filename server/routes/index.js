@@ -11,7 +11,7 @@ module.exports = (app) => {
 
   app.post('/contacts/list', verifyToken, contactsController.createList);
   app.post('/contacts', verifyToken, contactsController.create);
-  app.get('/contacts/me', verifyToken, contactsController.list);
+  app.get('/contacts/me', verifyToken, contactsController.myList);
 
   app.use((req, res) => {
     res

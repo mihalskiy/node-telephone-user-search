@@ -48,7 +48,7 @@ module.exports = {
 
         const token = jwt.sign(
           {
-            user: createdUser.id,
+            userId: createdUser.id,
           },
           config.secret,
           {
@@ -114,7 +114,7 @@ module.exports = {
 
     const token = jwt.sign(
       {
-        id: user.id,
+        userId: user.id,
       },
       config.secret,
       {

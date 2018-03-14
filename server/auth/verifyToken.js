@@ -23,10 +23,12 @@ function verifyToken(req, res, next) {
           message: 'Failed to authenticate token.',
         });
     }
+    console.log('decoded', decoded);
 
     // if everything good, save to request for use in other routes
-    req.userId = decoded.id;
+    req.userId = decoded.userId;
 
+    console.log('req.userId', req.userId);
     next();
   });
 }

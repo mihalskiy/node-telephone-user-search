@@ -3,7 +3,7 @@ const phone = require('phone');
 const {Contact} = require('../models');
 
 module.exports = {
-  create(req, res) {
+  async create(req, res) {
     const {
       firstName,
       lastName,
@@ -14,22 +14,33 @@ module.exports = {
       anotherPhoneNumber,
     } = req.body;
 
-    const clearedPhoneNumber = phone(phoneNumber)[0];
-    const clearedAnotherPhoneNumber = phone(anotherPhoneNumber)[0];
+    const clearedPhoneNumber = phone(phoneNumber)[0]
+      || phoneNumber.replace(/[\(\)\.\-\ \+\x]/g, '');
 
-    return Contact
-      .create({
-        phoneNumber: clearedPhoneNumber,
-        anotherPhoneNumber: clearedAnotherPhoneNumber,
+    const clearedAnotherPhoneNumber = phone(anotherPhoneNumber)[0]
+      || anotherPhoneNumber.replace(/[\(\)\.\-\ \+\x]/g, '');
 
-        firstName,
-        lastName,
-        email,
-        photoURL,
-        companyName,
-      })
-      .then((contacts) => res.status(201).send(contacts))
-      .catch((error) => res.status(400).send(error));
+    try {
+      const contact = await Contact
+        .create({
+          phoneNumber: clearedPhoneNumber,
+          anotherPhoneNumber: clearedAnotherPhoneNumber,
+          firstName,
+          lastName,
+          email,
+          photoURL,
+          companyName,
+          userId: req.userId,
+        });
+
+      return res
+        .status(201)
+        .send(contact);
+    } catch (error) {
+      return res
+        .status(400)
+        .send(error);
+    }
   },
 
   async createList(req, res) {
@@ -37,7 +48,7 @@ module.exports = {
       throw new Error('list empty, should provide array of objects');
     }
 
-    const list = req.body.list.map(async (item) => {
+    const list = req.body.list.map((item) => {
       const clearedPhoneNumber = phone(item.phoneNumber)[0]
         || item.phoneNumber.replace(/[\(\)\.\-\ \+\x]/g, '');
 
@@ -52,22 +63,30 @@ module.exports = {
         companyName: item.companyName,
         phoneNumber: clearedPhoneNumber,
         anotherPhoneNumber: clearedAnotherPhoneNumber,
+        userId: req.userId,
       };
     });
 
+    console.log('list', list);
     try {
       const contacts = await Contact.bulkCreate(list, {
         returning: true,
       });
-      return res.status(201).send(contacts);
+      return res
+        .status(201)
+        .send(contacts);
     } catch (error) {
-      return res.status(400).send(error);
+      return res
+        .status(400)
+        .send(error);
     }
   },
 
-  async list(req, res) {
+  async myList(req, res) {
     const opts = {
-      where: {},
+      where: {
+        userId: req.userId,
+      },
     };
 
     if (req.query.firstName) {
@@ -112,23 +131,23 @@ module.exports = {
     }
   },
 
-  retrieve(req, res) {
-    return Contact
-      .findById(req.params.contactId/* , {
-                include: [{
-                    model: TodoItem,
-                    as: 'todoItems',
-                }],
-            }*/)
-      .then((сontact) => {
-        if (!сontact) {
-          return res.status(404).send({
-            message: 'сontact Not Found',
-          });
-        }
-        return res.status(200).send(сontact);
-      })
-      .catch((error) => res.status(400).send(error));
-  },
+  // retrieve(req, res) {
+  //   return Contact
+  //     .findById(req.params.contactId/* , {
+  //               include: [{
+  //                   model: TodoItem,
+  //                   as: 'todoItems',
+  //               }],
+  //           }*/)
+  //     .then((сontact) => {
+  //       if (!сontact) {
+  //         return res.status(404).send({
+  //           message: 'сontact Not Found',
+  //         });
+  //       }
+  //       return res.status(200).send(сontact);
+  //     })
+  //     .catch((error) => res.status(400).send(error));
+  // },
 
 };

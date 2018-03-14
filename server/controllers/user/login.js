@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
 
   const token = jwt.sign(
     {
-      id: user.id,
+      userId: user.id,
     },
     config.secret,
     {
