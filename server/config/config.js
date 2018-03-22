@@ -9,8 +9,6 @@ module.exports = {
     'database': 'phonelist',
     'host': '127.0.0.1',
     'port': 5432,
-    // 'logging': logging,
-    // 'operatorsAliases': false,
     'dialect': 'postgres',
   },
   'test': {
@@ -19,8 +17,22 @@ module.exports = {
     'database': 'todos-test',
     'host': '127.0.0.1',
     'port': 5432,
-    // 'logging': logging,
-    // 'operatorsAliases': false,
+    'dialect': 'postgres',
+  },
+  'aws-dev': {
+    'username': 'getcontactsmaster',
+    'password': 'launchdb5566',
+    'database': 'getcontactsdb',
+    'host': 'getcontacts.cr3byarqwba4.us-east-2.rds.amazonaws.com',
+    'port': 5432,
+    'dialect': 'postgres',
+  },
+  'aws-prod': {
+    'username': 'getcontactsmaster',
+    'password': 'launchdb5566',
+    'database': 'getcontactsdb',
+    'host': 'getcontacts.cr3byarqwba4.us-east-2.rds.amazonaws.com',
+    'port': 5432,
     'dialect': 'postgres',
   },
 };

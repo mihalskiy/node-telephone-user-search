@@ -1,5 +1,10 @@
 # This repo houses code for search the contacts  (using Sequelize and PostgreSQL)"
 
+
+    $ NODE_ENV=aws-dev npm run db:init
+    $ NODE_ENV=aws-dev npm start
+
+
 If you dont have install  node-js, please go this link [https://nodejs.org](https://nodejs.org)
 
 # Sequelize Setup
@@ -98,6 +103,9 @@ You should see {"message":"Welcome to the beginning of nothingness."}
 
 
 
-
+    $ NODE_ENV=aws-dev npm run db:init
+    $ NODE_ENV=aws-dev npm start
 
 Have fun! smile
+
+

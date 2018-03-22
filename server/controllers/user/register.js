@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
   const clearedPhoneNumber =
     phone(phoneNumber)[0] || phoneNumber.replace(/[\(\)\.\-\ \+\x]/g, '');
   const hashedPassword = bcrypt.hashSync(password, 8);
-  console.log('clearedPhoneNumber', clearedPhoneNumber);
+  console.log('clearedPhoneNumber111', clearedPhoneNumber);
 
   let user;
   try {
@@ -30,7 +30,9 @@ module.exports = async (req, res) => {
         userName,
       },
     });
+    console.log(user);
   } catch (error) {
+    console.error(error);
     return res
       .status(400)
       .send(error);
@@ -63,6 +65,7 @@ module.exports = async (req, res) => {
           userName: createdUser.userName,
         });
     } catch (error) {
+      console.error(error);
       return res
         .status(400)
         .send(error);
