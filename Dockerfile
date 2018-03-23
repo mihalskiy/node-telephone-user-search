@@ -20,5 +20,6 @@ ENV NODE_ENV aws-dev
 #ENV CONFIG_FILE ./conf/prod/config.json
 #ENV LOG_LEVEL info
 WORKDIR /app
+EXPOSE 8000
 COPY --from=prerelease /app ./
 ENTRYPOINT ["npm", "start"]
