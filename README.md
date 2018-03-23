@@ -106,6 +106,10 @@ You should see {"message":"Welcome to the beginning of nothingness."}
     $ NODE_ENV=aws-dev npm run db:init
     $ NODE_ENV=aws-dev npm start
 
+
+    $ sudo docker build -t getcontact .
+    $ sudo docker run -e getcontact .
+
 Have fun! smile
 
 
