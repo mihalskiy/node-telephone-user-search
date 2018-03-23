@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "node-telephone-user-search \n If you dont have install node-js, please go this link [https://nodejs.org](https://nodejs.org)",
   "main": "index.js",
+  "config": {
+    "engine": "getcontact",
+    "dockerHostUrl": "197229461665.dkr.ecr.us-east-2.amazonaws.com"
+  },
   "scripts": {
     "//prestart": "npm run validateSwagger && npm run fix",
     "//db:create": "node_modules/.bin/create_database",
@@ -14,8 +18,8 @@
     "db:createMigration": "sequelize migration:create --name migration",
     "dockerLocal": "npm run predocker && docker run -e $npm_package_config_engine .",
     "predocker": "docker build -t $npm_package_config_engine .",
-    "docker": "docker tag $npm_package_config_engine $npm_package_config_dockerHostUrl/$npm_package_config_orgId/$npm_package_config_engine:$npm_package_version",
-    "postdocker": "docker push $npm_package_config_dockerHostUrl/$npm_package_config_orgId/$npm_package_config_engine:$npm_package_version"
+    "docker": "docker tag $npm_package_config_engine $npm_package_config_dockerHostUrl/$npm_package_config_engine:$npm_package_version",
+    "postdocker": "docker push $npm_package_config_dockerHostUrl/$npm_package_config_engine:$npm_package_version"
   },
   "keywords": [],
   "author": "",

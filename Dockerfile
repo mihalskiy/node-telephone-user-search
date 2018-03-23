@@ -15,8 +15,8 @@ COPY --from=deps /app/prod_node_modules ./node_modules
 COPY . ./
 
 # ---- Release ---- #
-FROM node:9-slim as release
-ENV NODE_ENV production
+FROM node:9 as release
+ENV NODE_ENV aws-dev
 #ENV CONFIG_FILE ./conf/prod/config.json
 #ENV LOG_LEVEL info
 WORKDIR /app
