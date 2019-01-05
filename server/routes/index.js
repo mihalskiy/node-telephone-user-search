@@ -18,9 +18,9 @@ module.exports = (app) => {
   app.get('/contacts/listByName', verifyToken,
     contactsController.findAllByName);
 
-  // app.post('/contacts', verifyToken, contactsController.create);
-  // Отримання списку імен по номеру
-  // Отримання списку номерів з іменами по імені
+  // app.post('/contacts', contactsController.create);
+  // get lis name by number
+  // get lis name by name
 
   app.use((req, res) => {
     res
