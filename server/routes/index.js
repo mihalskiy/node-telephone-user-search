@@ -15,7 +15,7 @@ module.exports = (app) => {
   app.get('/contacts/listByNumber', verifyToken,
     contactsController.findAllByNumber);
 
-  app.get('/contacts/listByName', verifyToken,
+  app.get('/contacts/listByName',
     contactsController.findAllByName);
 
   // app.post('/contacts', contactsController.create);

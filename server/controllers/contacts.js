@@ -1,6 +1,6 @@
 const phone = require('phone');
-
 const {Contact} = require('../models');
+const elasticSearch = require('../elasticsearch/index')
 
 module.exports = {
   async create(req, res) {
@@ -120,65 +120,40 @@ module.exports = {
   },
 
   async findAllByName(req, res) {
-    const opts = {
-      where: {
-        userId: req.userId,
-      },
-    };
-
-    if (req.query.firstName) {
-      opts.where.firstName = {
-        $like: '%' + req.query.firstName +'%',
-      };
-    }
-
-    if (req.query.lastName) {
-      opts.where.lastName = {
-        $like: '%' + req.query.lastName +'%',
-      };
-    }
-
-    if (req.query.email) {
-      opts.where.email = {
-        $like: '%' + req.query.email +'%',
-      };
-    }
-
-    if (req.query.companyName) {
-      opts.where.email = {
-        $like: '%' + req.query.email +'%',
-      };
-    }
-
     try {
-      const contacts = await Contact.findAll(opts);
-      return res
-        .status(200)
-        .send(contacts);
+
+      let body = {
+        query: {
+          multi_match: {
+            query: req.query.q || '',
+            type: "phrase_prefix",
+            fields: ["firstName", "lastName", "email", "companyName"],
+          }
+        }
+      };
+
+      let defaultBody = {
+        size: 10,
+        from: 0,
+        query: {
+          match_all: {}
+        }
+      };
+
+      const search = req.query.q ? body : defaultBody;
+      elasticSearch.searchData('contact', search)
+        .then(results => {
+          res
+            .status(200)
+            .send({
+              data: results.hits.hits,
+              total: results.hits.total
+            })
+        })
     } catch (error) {
       return res
         .status(400)
         .send(error);
     }
   },
-
-  // retrieve(req, res) {
-  //   return Contact
-  //     .findById(req.params.contactId/* , {
-  //               include: [{
-  //                   model: TodoItem,
-  //                   as: 'todoItems',
-  //               }],
-  //           }*/)
-  //     .then((сontact) => {
-  //       if (!сontact) {
-  //         return res.status(404).send({
-  //           message: 'сontact Not Found',
-  //         });
-  //       }
-  //       return res.status(200).send(сontact);
-  //     })
-  //     .catch((error) => res.status(400).send(error));
-  // },
-
 };

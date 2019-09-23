@@ -8,8 +8,6 @@ const db = {};
 console.log('ENV', env);
 
 let sequelize;
-console.log('config.use_env_variable', config.use_env_variable);
-
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
