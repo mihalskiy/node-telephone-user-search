@@ -7,9 +7,22 @@
 
 If you dont have install  node-js, please go this link [https://nodejs.org](https://nodejs.org)
 
-# Sequelize Setup
 
-Let's begin by installing Sequelize CLI package. ```npm install -g sequelize-cli```
+# Elasticsearch Setup for Mac
+I am installing on the Mac. So type the following command in your terminal to install Elasticsearch via homebrew.
+```
+brew install elasticsearch
+
+```
+
+It will install it and now start the services using the following command.
+
+```
+brew services start elasticsearch
+
+```
+ 
+
 
 # PostgreSQL Setup for LINUX 
 

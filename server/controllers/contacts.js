@@ -125,7 +125,7 @@ module.exports = {
       let body = {
         query: {
           multi_match: {
-            query: req.query.q || '',
+            query: req.query.q,
             type: "phrase_prefix",
             fields: ["firstName", "lastName", "email", "companyName"],
           }
