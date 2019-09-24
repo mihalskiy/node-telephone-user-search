@@ -7,6 +7,10 @@
     "engine": "getcontact",
     "dockerHostUrl": "197229461665.dkr.ecr.us-east-2.amazonaws.com"
   },
+  "engines": {
+    "node": ">=12.10.0",
+    "npm": ">=6.10.3"
+  },
   "scripts": {
     "//prestart": "npm run validateSwagger && npm run fix",
     "//db:create": "node_modules/.bin/create_database",
@@ -35,6 +39,7 @@
     "elasticsearch": "^16.4.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
+    "forwarded": "^0.1.2",
     "js-yaml": "^3.13.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",

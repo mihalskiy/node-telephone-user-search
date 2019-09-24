@@ -3,7 +3,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const initSwagger = require('./server/middleware/swagger/initSwagger');
 const initCookie = require('./server/middleware/cookie/initCookie');
-const elasticSearch = require('./server/elasticsearch/index')
+const elasticSearch = require('./server/elasticsearch/index');
 const app = express();
 
 initSwagger(app);
@@ -18,7 +18,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 require('./server/routes')(app);
-elasticSearch.init('contact', 'article');
+const elastic = new elasticSearch();
+elastic.init('contact', 'article')
 
 
 module.exports = app;

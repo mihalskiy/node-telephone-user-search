@@ -141,7 +141,8 @@ module.exports = {
       };
 
       const search = req.query.q ? body : defaultBody;
-      elasticSearch.searchData('contact', search)
+      const elastic = new elasticSearch();
+      elastic.searchData('contact', search)
         .then(results => {
           res
             .status(200)
